@@ -1,6 +1,7 @@
 public class Fil extends Thread {
+ 
+    private static int ITERACIONS = 9;
 
-    private int count = 0;
 
     public Fil(String nom) {
         super(nom);
@@ -9,7 +10,9 @@ public class Fil extends Thread {
     @Override
     public void run() {
         //System.out.println("Soc el fil " + getName());
-        System.out.println(getName()+count++);
+       for (int i = 1; i <= ITERACIONS; i++) {
+            System.out.println( getName() + i);
+        }
     }
 
     
