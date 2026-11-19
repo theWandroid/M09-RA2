@@ -39,24 +39,27 @@ public class Futbolista extends Thread {
         Futbolista[] jugadors = new Futbolista[NUM_JUGADORS];
         String[] plantilla
                 = {"Piqué", "Vinicius", "Torres", "Ramos", "Ronaldo", "Lewan", "Belli", "Arnau", "Aspas", "Messi", "MBapé"};
+        System.out.println("Inici dels xuts --------------------");
+
         for (int i = 0; i < jugadors.length; i++) {
             jugadors[i] = new Futbolista(plantilla[i]);
             jugadors[i].start();
         }
 
-        System.out.println("Inici dels xuts --------------------");
-        System.out.println("Fi dels xuts -----------------------");
-        System.out.println("--- Estadístiques ------");
 
         for (int i = 0; i < jugadors.length; i++){
             try {
                 jugadors[i].join();
-                jugadors[i].getGols();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.out.println(jugadors[i]+" "+e.getMessage());
             }
         }
+
+        System.out.println("Fi dels xuts -----------------------");
+
+        System.out.println("--- Estadístiques ------");
+
 
         for (int i = 0; i < jugadors.length; i++){
             System.out.printf("%-10s -> %d gols%n",jugadors[i].getName(), jugadors[i].getGols());
