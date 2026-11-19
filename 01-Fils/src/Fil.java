@@ -17,6 +17,14 @@ public class Fil extends Thread {
 
     @Override
     public void run() {
+        System.out.println(
+    getName()
+    + " | delay=" + DELAY
+    + " | prioritat=" + getPriority()
+    + " | mode=" + (DELAY == 0 ? "feina" : "pausa")
+);
+
+
         //System.out.println("Soc el fil " + getName());
         if(DELAY == 0)
             runAmbFeina();
@@ -27,7 +35,7 @@ public class Fil extends Thread {
                e.printStackTrace();
            }
         }
-        System.out.println("Acaba fil " + getName());
+        System.out.println("Termina el fil " + getName());
     }
 
     private void runAmbFeina() {
