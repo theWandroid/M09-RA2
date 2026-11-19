@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class Futbolista extends Thread {
@@ -8,6 +9,10 @@ public class Futbolista extends Thread {
 
     private int gols;
 
+    public int getGols(){
+        return  gols;
+    }
+
     public Futbolista(String nom) {
         super(nom);
         gols = 0;
@@ -15,24 +20,51 @@ public class Futbolista extends Thread {
 
     @Override
     public void run() {
-        Random randomNum = new Random();
+        Random random = new Random();
 
-
-        System.out.println("Soc el fil" + getName());
+        //System.out.println("Soc el fil" + getName());
 
         for (int i = 0; i < NUM_TIRADES; i++) {
 
-            randomNum *= 1*PROBABILITAT;
-            gols = 
-            if(randomNum == 1)goal
+            if (random.nextFloat() < PROBABILITAT) {
+                gols++;
+            }
+            //System.out.println(gols + " gols.");
+
         }
     }
 
     public static void main(String[] args) {
-        Futbolista f1 = new Futbolista("Pepe");
-        Futbolista f2 = new Futbolista("Juan");
-        f1.start();
-        f2.start();
+
+        Futbolista[] jugadors = new Futbolista[NUM_JUGADORS];
+        String[] plantilla
+                = {"Piqué", "Vinicius", "Torres", "Ramos", "Ronaldo", "Lewan", "Belli", "Arnau", "Aspas", "Messi", "MBapé"};
+        for (int i = 0; i < jugadors.length; i++) {
+            jugadors[i] = new Futbolista(plantilla[i]);
+            jugadors[i].start();
+        }
+
+        System.out.println("Inici dels xuts --------------------");
+        System.out.println("Fi dels xuts -----------------------");
+        System.out.println("--- Estadístiques ------");
+
+        for (int i = 0; i < jugadors.length; i++){
+            try {
+                jugadors[i].join();
+                jugadors[i].getGols();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.out.println(jugadors[i]+" "+e.getMessage());
+            }
+        }
+
+        for (int i = 0; i < jugadors.length; i++){
+            System.out.printf("%-10s -> %d gols%n",jugadors[i].getName(), jugadors[i].getGols());
+        }
+
+        
+
+
     }
 
     /*
